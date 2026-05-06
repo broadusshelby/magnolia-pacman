@@ -34,9 +34,11 @@ h1 {
   padding:12px;
   border-radius:30px;
   box-shadow:0 10px 30px rgba(0,0,0,0.12);
+  transition: opacity 0.3s ease;
 }
 
-.cell {
+.cell hover {
+  transform: scale(1.05);
   width:34px;
   height:34px;
   display:flex;
@@ -44,14 +46,16 @@ h1 {
   align-items:center;
   font-size:18px;
   border-radius:10px;
+  transition: transform 0.1s ease;
 }
 
+
 .wall {
-  background:#e9c8d6;
+  background: linear-gradient(#e9c8d6, #d9a8ba);
 }
 
 .path {
-  background:#fff;
+    background: linear-gradient(#fff, #fff0f5);
 }
 
 #instructions {
@@ -114,4 +118,39 @@ button {
   h1 {
     font-size:28px;
   }
+}
+.player {
+  width:20px;
+  height:20px;
+  background: radial-gradient(circle, #ffd1dc, #e89bb0);
+  border-radius:50%;
+  box-shadow:0 0 10px rgba(255,182,193,0.8);
+  animation: pulse 1s infinite;
+}
+
+.flower {
+  width:10px;
+  height:10px;
+  background:#ff9eb5;
+  border-radius:50%;
+  box-shadow:0 0 6px rgba(255,158,181,0.7);
+}
+
+.bee {
+  width:18px;
+  height:18px;
+  background:linear-gradient(90deg,#ffd700,#000);
+  border-radius:50%;
+  box-shadow:0 0 8px rgba(255,215,0,0.8);
+  animation: buzz 0.3s infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.2); }
+}
+
+@keyframes buzz {
+  from { transform: translateX(0); }
+  to { transform: translateX(2px); }
 }
