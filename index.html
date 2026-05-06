@@ -1,1 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magnolia Bloom Flower Chase</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<div id="game-wrapper">
+  <h1>Magnolia Bloom Flower Chase</h1>
+
+  <div id="hud">
+    <div id="score">Score: 0</div>
+    <div id="level">Level: 1</div>
+  </div>
+
+  <div id="message-overlay" class="hidden"></div>
+
+  <div id="game"></div>
+
+  <div id="instructions">
+    Guide your magnolia blossom through each blooming garden.
+  </div>
+
+  <div id="mobile-toggle">
+    <label>
+      <input type="checkbox" id="touchToggle"> Enable Mobile Petal Controls
+    </label>
+  </div>
+
+  <div id="mobile-controls" class="hidden">
+    <button onclick="setDirection('up')">⬆️</button>
+    <div>
+      <button onclick="setDirection('left')">⬅️</button>
+      <button onclick="setDirection('down')">⬇️</button>
+      <button onclick="setDirection('right')">➡️</button>
+    </div>
+  </div>
+
+  <button id="restartBtn" onclick="restartGame()">Restart Garden</button>
+</div>
+
+<script src="levels.js"></script>
+<script src="mobile.js"></script>
+<script src="game.js"></script>
+
+</body>
+</html>
