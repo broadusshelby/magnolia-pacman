@@ -15,6 +15,11 @@ function loadLevel(){
 
   document.getElementById('game').style.gridTemplateColumns =
     `repeat(${board[0].length},34px)`;
+  document.getElementById('game').style.opacity = 0;
+setTimeout(()=>{
+  drawGame();
+  document.getElementById('game').style.opacity = 1;
+},200);
 
   drawGame();
   showMessage('Level ' + (currentLevel+1));
