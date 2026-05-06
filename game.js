@@ -30,12 +30,17 @@ function drawGame(){
       cell.className = 'cell ' + (board[y][x]==='#' ? 'wall':'path');
 
       if(player.x===x && player.y===y){
-        cell.innerHTML='🌸';
-      } else if(bees.some(b=>b.x===x && b.y===y)){
-        cell.innerHTML='🐝';
-      } else if(board[y][x]==='.'){
-        cell.innerHTML='✿';
-      }
+     cell.innerHTML = '';
+
+if(player.x===x && player.y===y){
+  cell.innerHTML = '<div class=\"player\"></div>';
+} 
+else if(bees.some(b=>b.x===x && b.y===y)){
+  cell.innerHTML = '<div class=\"bee\"></div>';
+} 
+else if(board[y][x]==='.'){
+  cell.innerHTML = '<div class=\"flower\"></div>';
+}
 
       game.appendChild(cell);
     }
