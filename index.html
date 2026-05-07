@@ -9,6 +9,9 @@
 <body>
 
 <div id="game-wrapper">
+
+  <img src="logo.png" id="logo">
+
   <h1>Magnolia Bloom Flower Chase</h1>
 
   <div id="hud">
@@ -20,13 +23,9 @@
 
   <div id="game"></div>
 
-  <div id="instructions">
-    Guide your magnolia blossom through each blooming garden.
-  </div>
-
   <div id="mobile-toggle">
     <label>
-      <input type="checkbox" id="touchToggle"> Enable Mobile Petal Controls
+      <input type="checkbox" id="touchToggle"> Mobile Controls
     </label>
   </div>
 
@@ -39,7 +38,8 @@
     </div>
   </div>
 
-  <button id="restartBtn" onclick="restartGame()">Restart Garden</button>
+  <button onclick="restartGame()">Restart</button>
+
 </div>
 
 <script src="levels.js"></script>
