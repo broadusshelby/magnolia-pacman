@@ -5,24 +5,22 @@ let player = {x:1,y:1};
 let bees = [];
 
 function loadLevel(){
-  const levelData = LEVELS[currentLevel];
-  board = levelData.rows.map(r=>r.split(''));
+  const level = LEVELS[currentLevel];
+  board = level.rows.map(r=>r.split(''));
   bees = [];
 
-  for(let i=0;i<levelData.bees;i++){
+  for(let i=0;i<level.bees;i++){
     bees.push({x:13-i,y:13});
   }
 
-  document.getElementById('game').style.gridTemplateColumns =
-    `repeat(${board[0].length},34px)`;
-  document.getElementById('game').style.opacity = 0;
-setTimeout(()=>{
-  drawGame();
-  document.getElementById('game').style.opacity = 1;
-},200);
+  const game = document.getElementById('game');
+  game.style.opacity = 0;
 
-  drawGame();
-  showMessage('Level ' + (currentLevel+1));
+  setTimeout(()=>{
+    game.style.gridTemplateColumns = `repeat(${board[0].length},34px)`;
+    drawGame();
+    game.style.opacity = 1;
+  },200);
 }
 
 function drawGame(){
@@ -35,30 +33,23 @@ function drawGame(){
       cell.className = 'cell ' + (board[y][x]==='#' ? 'wall':'path');
 
       if(player.x===x && player.y===y){
-     cell.innerHTML = '';
-
-if(player.x===x && player.y===y){
-  cell.innerHTML = '<div class=\"player\"></div>';
-} 
-else if(bees.some(b=>b.x===x && b.y===y)){
-  cell.innerHTML = '<div class=\"bee\"></div>';
-} 
-else if(board[y][x]==='.'){
-  cell.innerHTML = '<div class=\"flower\"></div>';
-}
+        cell.innerHTML='<div class=\"player\"></div>';
+      } else if(bees.some(b=>b.x===x && b.y===y)){
+        cell.innerHTML='<div class=\"bee\"></div>';
+      } else if(board[y][x]==='.'){
+        cell.innerHTML='<div class=\"flower\"></div>';
+      }
 
       game.appendChild(cell);
     }
   }
 
-  document.getElementById('score').innerText = 'Score: ' + score;
-  document.getElementById('level').innerText = 'Level: ' + (currentLevel+1);
+  document.getElementById('score').innerText = 'Score: '+score;
+  document.getElementById('level').innerText = 'Level: '+(currentLevel+1);
 }
 
 function movePlayer(dir){
-  let nx = player.x;
-  let ny = player.y;
-
+  let nx=player.x, ny=player.y;
   if(dir==='up') ny--;
   if(dir==='down') ny++;
   if(dir==='left') nx--;
@@ -81,46 +72,33 @@ function movePlayer(dir){
 }
 
 function moveBees(){
-  bees.forEach(bee=>{
-    const dirs = [[1,0],[-1,0],[0,1],[0,-1]];
-    let valid = dirs.filter(d=> board[bee.y+d[1]][bee.x+d[0]] !== '#');
-    let pick = valid[Math.floor(Math.random()*valid.length)];
-    bee.x += pick[0];
-    bee.y += pick[1];
+  bees.forEach(b=>{
+    const dirs=[[1,0],[-1,0],[0,1],[0,-1]];
+    let valid=dirs.filter(d=>board[b.y+d[1]][b.x+d[0]]!=='#');
+    let pick=valid[Math.floor(Math.random()*valid.length)];
+    b.x+=pick[0];
+    b.y+=pick[1];
   });
 }
 
 function checkCollision(){
   if(bees.some(b=>b.x===player.x && b.y===player.y)){
-    showMessage('The bees found your blossom!');
-    setTimeout(restartGame,1500);
+    alert('Game Over');
+    restartGame();
   }
 }
 
 function checkWin(){
-  let flowersLeft = 0;
-  board.forEach(r=>r.forEach(c=>{
-    if(c==='.') flowersLeft++;
-  }));
-
-  if(flowersLeft===0){
+  if(!board.flat().includes('.')){
     currentLevel++;
-
-    if(currentLevel >= LEVELS.length){
-      showMessage('You completed every blooming garden!');
-      setTimeout(restartGame,2000);
+    if(currentLevel>=LEVELS.length){
+      alert('You Win!');
+      restartGame();
     } else {
-      player = {x:1,y:1};
-      setTimeout(loadLevel,1200);
+      player={x:1,y:1};
+      loadLevel();
     }
   }
-}
-
-function showMessage(text){
-  const overlay = document.getElementById('message-overlay');
-  overlay.innerText = text;
-  overlay.classList.remove('hidden');
-  setTimeout(()=>overlay.classList.add('hidden'),1000);
 }
 
 document.addEventListener('keydown',e=>{
@@ -131,9 +109,9 @@ document.addEventListener('keydown',e=>{
 });
 
 function restartGame(){
-  currentLevel = 0;
-  score = 0;
-  player = {x:1,y:1};
+  currentLevel=0;
+  score=0;
+  player={x:1,y:1};
   loadLevel();
 }
 
